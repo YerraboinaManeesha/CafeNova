@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CaféNova — Admin Dashboard</title>
+<style>
+  :root{
+    --cream:#F5EBDD; --cream-light:#FBF6EE;
+    --brown-dark:#3E2A1E; --brown:#6B4226; --brown-mid:#8B5E3C; --gold:#C08A4E;
+    --pending:#C08A4E; --preparing:#4A7B9D; --ready:#4A9D6A; --completed:#6B4226; --cancelled:#B33C3C;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{ font-family:'Helvetica Neue',Arial,sans-serif; background:var(--cream); color:var(--brown-dark); min-height:100vh; }
+
+  /* ---- Login screen ---- */
+  .login-wrap{ min-height:100vh; display:flex; align-items:center; justify-content:center; }
+  .login-card{ background:var(--cream-light); padding:44px 40px; border-radius:10px; width:340px; max-width:90vw;
+    box-shadow:0 10px 30px rgba(62,42,30,0.1); }
+  .login-card h1{ font-family:'Georgia',serif; font-size:1.5rem; margin-bottom:6px; text-align:center;
+    display:flex; align-items:center; justify-content:center; gap:10px; }
+  .login-card h1 .logo-img{ height:32px; width:auto; object-fit:contain; margin-top:-4px; }
+  .login-card .sub{ text-align:center; color:var(--brown-mid); font-size:0.85rem; margin-bottom:26px; }
+  .login-card input{ width:100%; padding:12px 14px; margin-bottom:14px; border:1px solid rgba(62,42,30,0.2);
+    border-radius:6px; font-family:inherit; font-size:0.9rem; }
+  .login-card button{ width:100%; padding:13px; border:none; border-radius:6px; background:var(--brown);
+    color:var(--cream-light); font-size:0.9rem; font-weight:bold; cursor:pointer; transition:background 0.2s; }
+  .login-card button:hover{ background:var(--brown-dark); }
+  .login-error{ color:#B33C3C; font-size:0.82rem; margin-bottom:12px; text-align:center; display:none; }
+  .pw-wrap{ position:relative; margin-bottom:14px; }
+  .pw-wrap input{ width:100%; padding-right:40px; margin-bottom:0; }
+  .pw-wrap .pw-toggle{ position:absolute !important; top:50% !important; right:8px !important; left:auto !important;
+    transform:translateY(-50%) !important; background:none !important; background-color:transparent !important;
+    border:none !important; outline:none; cursor:pointer; color:var(--brown-mid) !important;
+    display:flex !important; align-items:center; justify-content:center;
+    width:32px !important; height:32px !important; padding:0 !important; margin:0 !important;
+    border-radius:50% !important; font-weight:normal !important; box-sizing:border-box; }
+  .pw-wrap .pw-toggle:hover{ background:rgba(107,66,38,0.08) !important; }
+
+  /* ---- Dashboard shell ---- */
+  .dash{ display:none; }
+  .dash.active{ display:block; }
+  .dash-header{ background:var(--brown-dark); color:var(--cream); padding:18px 6vw; display:flex;
+    justify-content:space-between; align-items:center; }
+  .dash-header h1{ font-family:'Georgia',serif; font-size:1.3rem; display:flex; align-items:center; gap:10px; }
+  .dash-header h1 .logo-img{ height:30px; width:auto; object-fit:contain; margin-top:-4px; }
+  .dash-header .logout{ background:none; border:1px solid rgba(245,235,221,0.4); color:var(--cream);
+    padding:8px 16px; border-radius:20px; font-size:0.8rem; cursor:pointer; }
+  .dash-header .logout:hover{ background:rgba(245,235,221,0.1); }
+
+  .tabs{ display:flex; gap:8px; padding:20px 6vw 0; }
+  .tab{ padding:10px 22px; border-radius:8px 8px 0 0; background:var(--cream-light); cursor:pointer;
+    font-size:0.9rem; border:1px solid transparent; }
+  .tab.active{ background:#fff; border:1px solid rgba(62,42,30,0.1); border-bottom:none; font-weight:bold; }
+
+  .panel{ display:none; background:#fff; margin:0 6vw 40px; padding:30px; border-radius:0 8px 8px 8px;
+    border:1px solid rgba(62,42,30,0.1); }
+  .panel.active{ display:block; }
+
+  /* Orders table */
+  table{ width:100%; border-collapse:collapse; font-size:0.88rem; }
+  th{ text-align:left; padding:10px 12px; border-bottom:2px solid rgba(62,42,30,0.1); color:var(--brown-mid); font-size:0.78rem; text-transform:uppercase; letter-spacing:0.05em; }
+  td{ padding:12px; border-bottom:1px solid rgba(62,42,30,0.06); vertical-align:top; }
+  .status-badge{ display:inline-block; padding:4px 12px; border-radius:14px; font-size:0.75rem; color:#fff; font-weight:bold; }
+  .status-pending{ background:var(--pending); }
+  .status-preparing{ background:var(--preparing); }
+  .status-ready{ background:var(--ready); }
+  .status-completed{ background:var(--completed); }
+  .status-cancelled{ background:var(--cancelled); }
+  select.status-select{ padding:6px 10px; border-radius:6px; border:1px solid rgba(62,42,30,0.2); font-family:inherit; font-size:0.82rem; }
+  .items-list{ font-size:0.82rem; color:var(--brown-mid); }
+  .refresh-btn{ margin-bottom:16px; padding:9px 18px; border:none; border-radius:20px; background:var(--brown);
+    color:var(--cream-light); cursor:pointer; font-size:0.82rem; }
+  .empty-state{ text-align:center; color:var(--brown-mid); padding:40px; font-size:0.9rem; }
+
+  /* Menu management */
+  .menu-form{ display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:24px; align-items:end; }
+  .menu-form label{ font-size:0.75rem; color:var(--brown-mid); display:block; margin-bottom:4px; }
+  .menu-form input, .menu-form select{ width:100%; padding:9px 10px; border:1px solid rgba(62,42,30,0.2); border-radius:6px; font-family:inherit; font-size:0.85rem; }
+  .menu-form button{ padding:10px; border:none; border-radius:6px; background:var(--brown); color:var(--cream-light); cursor:pointer; font-size:0.85rem; }
+  .menu-table img{ width:44px; height:44px; object-fit:cover; border-radius:6px; }
+  .avail-toggle{ cursor:pointer; }
+  .del-btn{ background:none; border:1px solid #B33C3C; color:#B33C3C; padding:5px 12px; border-radius:14px; font-size:0.75rem; cursor:pointer; }
+  .del-btn:hover{ background:#B33C3C; color:#fff; }
+
+  /* Messages */
+  .message-badge{ display:inline-block; background:var(--gold); color:#fff; font-size:0.7rem; font-weight:bold;
+    padding:2px 8px; border-radius:10px; margin-left:6px; }
+
+  /* Reviews */
+  .review-item{ padding:18px; border-bottom:1px solid rgba(62,42,30,0.08); }
+  .review-item:last-child{ border-bottom:none; }
+  .review-item-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+  .review-item-name{ font-weight:bold; color:var(--brown-dark); }
+  .review-item-stars{ color:var(--gold); font-size:1.1rem; }
+  .review-item-text{ color:var(--brown-mid); font-size:0.9rem; line-height:1.5; margin-bottom:8px; }
+  .review-item-meta{ display:flex; justify-content:space-between; align-items:center; font-size:0.78rem; color:var(--brown-mid); }
+
+  .messages-toolbar{ display:flex; gap:10px; margin-bottom:16px; }
+  .messages-toolbar input{ flex:1; padding:9px 14px; border:1px solid rgba(62,42,30,0.2); border-radius:20px;
+    font-family:inherit; font-size:0.85rem; }
+
+  .messages-layout{ display:grid; grid-template-columns:300px 1fr; gap:0; min-height:450px;
+    border:1px solid rgba(62,42,30,0.1); border-radius:10px; overflow:hidden; }
+  .messages-list-pane{ border-right:1px solid rgba(62,42,30,0.1); overflow-y:auto; max-height:600px; }
+
+  .conv-item{ display:flex; gap:12px; padding:14px; border-bottom:1px solid rgba(62,42,30,0.06);
+    cursor:pointer; transition:background 0.15s; align-items:center; }
+  .conv-item:hover{ background:var(--cream); }
+  .conv-item.active{ background:rgba(192,138,78,0.14); }
+  .conv-avatar{ width:38px; height:38px; border-radius:50%; background:var(--brown); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:0.85rem; flex-shrink:0; }
+  .conv-name-wrap{ display:flex; align-items:center; gap:14px; min-width:0; flex:1; }
+  .conv-name{ font-weight:bold; font-size:0.9rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .conv-date{ font-size:0.78rem; color:var(--brown-mid); flex-shrink:0; }
+  .conv-menu-wrap{ position:relative; flex-shrink:0; }
+  .conv-menu-btn{ border:0; background:none; font-size:1.1rem; line-height:1; color:var(--brown-mid); cursor:pointer;
+    padding:4px 8px; border-radius:6px; }
+  .conv-menu-btn:hover{ background:rgba(62,42,30,0.08); }
+  .conv-menu{ position:absolute; top:calc(100% + 4px); right:0; background:#fff; border:1px solid rgba(62,42,30,0.12);
+    border-radius:8px; box-shadow:0 8px 20px rgba(62,42,30,0.15); min-width:130px; display:none; z-index:20; overflow:hidden; }
+  .conv-menu.show{ display:block; }
+  .conv-menu-delete{ width:100%; text-align:left; border:0; background:none; padding:10px 14px; font-size:0.85rem;
+    color:var(--brown-dark); cursor:pointer; }
+  .conv-menu-delete:hover{ background:var(--cream); }
+
+  .messages-reply-pane{ display:flex; flex-direction:column; }
+  .reply-pane-header{ padding:16px 20px; border-bottom:1px solid rgba(62,42,30,0.1); display:flex; align-items:center; gap:10px; }
+  .reply-back-btn{ display:none; border:0; background:none; font-size:1.2rem; cursor:pointer; color:var(--brown-dark); }
+  .reply-thread{ flex:1; overflow-y:auto; padding:18px 20px; background:var(--cream); display:flex; flex-direction:column; }
+  .reply-row{ display:flex; margin-bottom:10px; }
+  .reply-row.customer{ justify-content:flex-start; }
+  .reply-row.admin{ justify-content:flex-end; }
+  .reply-row > div{ max-width:70%; }
+  .reply-bubble{ width:fit-content; max-width:100%; padding:10px 14px; border-radius:14px; font-size:0.88rem; line-height:1.5; overflow-wrap:anywhere; }
+  .reply-row.admin .reply-bubble{ margin-left:auto; }
+  .reply-row.customer .reply-bubble{ background:#fff; border:1px solid rgba(62,42,30,0.1); border-bottom-left-radius:4px; }
+  .reply-row.admin .reply-bubble{ background:var(--brown); color:#fff; border-bottom-right-radius:4px; }
+  .reply-bubble-time{ font-size:0.68rem; margin-top:4px; opacity:0.7; }
+
+  .reply-form{ display:flex; gap:10px; padding:14px 16px; border-top:1px solid rgba(62,42,30,0.1); background:#fff; }
+  .reply-form textarea{ flex:1; min-height:40px; max-height:100px; padding:10px 14px; border:1px solid rgba(62,42,30,0.2);
+    border-radius:20px; font-family:inherit; font-size:0.88rem; resize:none; }
+  .reply-form button{ padding:0 20px; border:none; border-radius:20px; background:var(--brown);
+    color:var(--cream-light); cursor:pointer; font-size:0.85rem; font-weight:bold; }
+  .reply-form button:hover{ background:var(--brown-dark); }
+
+  @media (max-width:800px){
+    .messages-layout{ grid-template-columns:1fr; border:none; position:relative; }
+    .messages-list-pane{ max-height:none; border-right:none; }
+    .messages-reply-pane{ display:none; position:fixed; inset:0; background:#fff; z-index:900; }
+    .messages-reply-pane.mobile-open{ display:flex; }
+    .messages-list-pane.mobile-hidden{ display:none; }
+    .reply-back-btn{ display:block; }
+  }
+
+  @media (max-width:800px){
+    .menu-form{ grid-template-columns:1fr 1fr; }
+    table, thead, tbody, th, td, tr{ display:block; }
+    thead{ display:none; }
+    tr{ margin-bottom:14px; border:1px solid rgba(62,42,30,0.1); border-radius:8px; padding:10px; }
+    td{ border:none; padding:6px 4px; }
+  }
+
+  input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus{
+    -webkit-box-shadow:0 0 0 1000px #fff inset;
+    box-shadow:0 0 0 1000px #fff inset;
+    -webkit-text-fill-color:var(--brown-dark);
+    caret-color:var(--brown-dark);
+  }
+</style>
+</head>
+<body>
+
+<div class="login-wrap" id="loginWrap">
+  <div class="login-card">
+    <h1>
+      <img src="images/logo.png" alt="CaféNova" class="logo-img">
+      CaféNova
+    </h1>
+    <div class="sub">Admin Dashboard</div>
+    <p style="text-align:center; color:var(--brown-mid); font-size:0.9rem; line-height:1.6;">
+      Please sign in from the main site to access the admin dashboard.
+    </p>
+    <a href="landing.html" style="display:block; text-align:center; margin-top:20px; padding:13px; border-radius:6px; background:var(--brown); color:var(--cream-light); font-weight:bold; text-decoration:none;">
+      Go to Sign In
+    </a>
+  </div>
+</div>
+
+<div class="dash" id="dash">
+  <div class="dash-header">
+    <h1>
+      <img src="images/logo.png" alt="CaféNova" class="logo-img">
+      CaféNova — Admin
+    </h1>
+    <button class="logout" id="logoutBtn">Log Out</button>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="orders">Orders</div>
+    <div class="tab" data-tab="menu">Menu Management</div>
+    <div class="tab" data-tab="messages">Messages<span class="message-badge" id="unreadBadge" style="display:none;">0</span></div>
+    <div class="tab" data-tab="reviews">Reviews</div>
+  </div>
+
+  <div class="panel active" id="ordersPanel">
+    <button class="refresh-btn" id="refreshOrders">↻ Refresh Orders</button>
+    <table>
+      <thead>
+        <tr><th>Order</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Placed</th><th></th></tr>
+      </thead>
+      <tbody id="ordersBody"></tbody>
+    </table>
+    <div class="empty-state" id="ordersEmpty" style="display:none;">No orders yet.</div>
+  </div>
+
+  <div class="panel" id="menuPanel">
+    <form class="menu-form" id="menuForm">
+      <div><label>Name</label><input type="text" id="itemName" required></div>
+      <div><label>Price (₹)</label><input type="number" id="itemPrice" required></div>
+      <div><label>Category</label>
+        <select id="itemCategory">
+          <option value="coffee">Coffee</option>
+          <option value="tea">Tea</option>
+          <option value="pastry">Pastry</option>
+          <option value="sandwich">Sandwich</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div><label>Image URL</label><input type="text" id="itemImage" placeholder="https://..."></div>
+      <button type="submit">Add Item</button>
+    </form>
+    <table class="menu-table">
+      <thead><tr><th></th><th>Name</th><th>Category</th><th>Price</th><th>Available</th><th></th></tr></thead>
+      <tbody id="menuBody"></tbody>
+    </table>
+    <div class="empty-state" id="menuEmpty" style="display:none;">No menu items yet.</div>
+  </div>
+
+  <div class="panel" id="messagesPanel">
+    <div class="messages-toolbar">
+      <input type="text" id="messagesSearch" placeholder="Search customers...">
+      <button class="refresh-btn" id="refreshMessages">↻ Refresh</button>
+    </div>
+    <div class="messages-layout" id="messagesLayout">
+      <div class="messages-list-pane" id="messagesListPane"></div>
+      <div class="messages-reply-pane" id="messagesReplyPane">
+        <div class="empty-state">Select a customer to view the conversation.</div>
+      </div>
+    </div>
+    <div class="empty-state" id="messagesEmpty" style="display:none;">No conversations yet.</div>
+  </div>
+
+  <div class="panel" id="reviewsPanel">
+    <button class="refresh-btn" id="refreshReviews">↻ Refresh Reviews</button>
+    <div id="reviewsList"></div>
+    <div class="empty-state" id="reviewsEmpty" style="display:none;">No reviews yet.</div>
+  </div>
+</div>
+
+<script>
+  const API_BASE = 'http://localhost:5000/api'; // change to your deployed backend URL
+  let token = null; // kept in memory only for this session — re-login needed after page reload
+
+  const loginWrap = document.getElementById('loginWrap');
+  const dash = document.getElementById('dash');
+
+  function enterDashboard(){
+    loginWrap.style.display = 'none';
+    dash.classList.add('active');
+    loadOrders();
+    loadMenu();
+    loadMessages();
+    loadReviews();
+  }
+
+  // admin.html is now token-only: the only way in is arriving from landing.html's
+  // unified Sign In with a token in the URL. There is no standalone login form here.
+  const urlParams = new URLSearchParams(window.location.search);
+  const incomingToken = urlParams.get('token');
+  if(incomingToken){
+    token = incomingToken;
+    enterDashboard();
+    // Clean the token out of the visible URL
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+
+  document.getElementById('logoutBtn').addEventListener('click', ()=>{
+    token = null;
+    dash.classList.remove('active');
+    loginWrap.style.display = 'flex';
+  });
+
+  // Tabs
+  document.querySelectorAll('.tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab + 'Panel').classList.add('active');
+    });
+  });
+
+  function authHeaders(){
+    return { 'Content-Type':'application/json', 'Authorization': `Bearer ${token}` };
+  }
+
+  // ---- Orders ----
+  async function loadOrders(){
+    try{
+      const res = await fetch(`${API_BASE}/admin/orders`, { headers: authHeaders() });
+      const orders = await res.json();
+      const body = document.getElementById('ordersBody');
+      const empty = document.getElementById('ordersEmpty');
+      if(!orders.length){ body.innerHTML=''; empty.style.display='block'; return; }
+      empty.style.display = 'none';
+      body.innerHTML = orders.map(o=>`
+        <tr>
+          <td><strong>#${o.orderCode}</strong></td>
+          <td>${o.customerName}<br><span class="items-list">${o.customerContact}</span></td>
+          <td class="items-list">${o.items.map(i=>`${i.qty}× ${i.name}`).join('<br>')}</td>
+          <td>₹${o.total}</td>
+          <td>
+            <span class="status-badge status-${o.status}">${o.status}</span><br>
+            <select class="status-select" data-id="${o._id}" style="margin-top:6px;">
+              ${['pending','preparing','ready','completed','cancelled'].map(s=>`<option value="${s}" ${s===o.status?'selected':''}>${s}</option>`).join('')}
+            </select>
+          </td>
+          <td class="items-list">${new Date(o.createdAt).toLocaleString()}</td>
+          <td><button class="del-btn order-del-btn" data-id="${o._id}">Delete</button></td>
+        </tr>
+      `).join('');
+    }catch(err){
+      document.getElementById('ordersEmpty').style.display='block';
+      document.getElementById('ordersEmpty').textContent = 'Could not load orders — is the backend running?';
+    }
+  }
+
+  document.getElementById('refreshOrders').addEventListener('click', loadOrders);
+
+  document.getElementById('ordersBody').addEventListener('change', async (e)=>{
+    if(!e.target.classList.contains('status-select')) return;
+    const id = e.target.dataset.id;
+    const status = e.target.value;
+    await fetch(`${API_BASE}/admin/orders/${id}/status`, {
+      method:'PUT', headers: authHeaders(), body: JSON.stringify({ status })
+    });
+    loadOrders();
+  });
+
+  document.getElementById('ordersBody').addEventListener('click', async (e)=>{
+    const delBtn = e.target.closest('.order-del-btn');
+    if(!delBtn) return;
+    if(!confirm('Delete this order?')) return;
+    await fetch(`${API_BASE}/admin/orders/${delBtn.dataset.id}`, {
+      method:'DELETE', headers: authHeaders()
+    });
+    loadOrders();
+  });
+
+  // ---- Menu ----
+  async function loadMenu(){
+    try{
+      const res = await fetch(`${API_BASE}/admin/menu`, { headers: authHeaders() });
+      const items = await res.json();
+      const body = document.getElementById('menuBody');
+      const empty = document.getElementById('menuEmpty');
+      if(!items.length){ body.innerHTML=''; empty.style.display='block'; return; }
+      empty.style.display = 'none';
+      body.innerHTML = items.map(i=>`
+        <tr>
+          <td>${i.image ? `<img src="${i.image}" alt="${i.name}">` : ''}</td>
+          <td>${i.name}</td>
+          <td>${i.category}</td>
+          <td>₹${i.price}</td>
+          <td><input type="checkbox" class="avail-toggle" data-id="${i._id}" ${i.available?'checked':''}></td>
+          <td><button class="del-btn" data-id="${i._id}">Remove</button></td>
+        </tr>
+      `).join('');
+    }catch(err){
+      document.getElementById('menuEmpty').style.display='block';
+      document.getElementById('menuEmpty').textContent = 'Could not load menu — is the backend running?';
+    }
+  }
+
+  document.getElementById('menuForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const name = document.getElementById('itemName').value;
+    const price = parseFloat(document.getElementById('itemPrice').value);
+    const category = document.getElementById('itemCategory').value;
+    const image = document.getElementById('itemImage').value;
+    await fetch(`${API_BASE}/admin/menu`, {
+      method:'POST', headers: authHeaders(), body: JSON.stringify({ name, price, category, image })
+    });
+    e.target.reset();
+    loadMenu();
+  });
+
+  document.getElementById('menuBody').addEventListener('change', async (e)=>{
+    if(!e.target.classList.contains('avail-toggle')) return;
+    const id = e.target.dataset.id;
+    await fetch(`${API_BASE}/admin/menu/${id}`, {
+      method:'PUT', headers: authHeaders(), body: JSON.stringify({ available: e.target.checked })
+    });
+  });
+
+  document.getElementById('menuBody').addEventListener('click', async (e)=>{
+    if(!e.target.classList.contains('del-btn')) return;
+    const id = e.target.dataset.id;
+    if(!confirm('Remove this menu item?')) return;
+    await fetch(`${API_BASE}/admin/menu/${id}`, { method:'DELETE', headers: authHeaders() });
+    loadMenu();
+  });
+
+  // ---- Messages (customer-support inbox) ----
+  let allConversations = [];
+  let selectedCustomerId = null;
+
+  function getInitials(name){
+    return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+  }
+
+  function timeAgo(dateStr){
+    const diffMs = Date.now() - new Date(dateStr).getTime();
+    const mins = Math.floor(diffMs / 60000);
+    if(mins < 1) return 'just now';
+    if(mins < 60) return `${mins} min ago`;
+    const hrs = Math.floor(mins / 60);
+    if(hrs < 24) return `${hrs} hr ago`;
+    return new Date(dateStr).toLocaleDateString();
+  }
+
+  async function loadMessages(){
+    try{
+      const res = await fetch(`${API_BASE}/admin/messages`, { headers: authHeaders() });
+      const data = await res.json();
+      allConversations = data.conversations || [];
+      const empty = document.getElementById('messagesEmpty');
+      const badge = document.getElementById('unreadBadge');
+
+      if(data.totalUnread > 0){ badge.style.display = 'inline-block'; badge.textContent = data.totalUnread; }
+      else{ badge.style.display = 'none'; }
+
+      renderConversationList(allConversations);
+
+      if(!allConversations.length){
+        empty.style.display = 'block';
+      }else{
+        empty.style.display = 'none';
+        if(!selectedCustomerId){
+          openConversation(allConversations[0].customerId);
+        }
+      }
+    }catch(err){
+      document.getElementById('messagesEmpty').style.display = 'block';
+      document.getElementById('messagesEmpty').textContent = 'Could not load messages — is the backend running?';
+    }
+  }
+
+  function renderConversationList(conversations){
+    const listPane = document.getElementById('messagesListPane');
+    listPane.innerHTML = conversations.map(c => `
+      <div class="conv-item ${c.customerId === selectedCustomerId ? 'active' : ''}" data-id="${c.customerId}">
+        <div class="conv-avatar">${getInitials(c.customerName)}</div>
+        <div class="conv-name-wrap">
+          <span class="conv-name">${c.customerName}</span>
+          <span class="conv-date">${formatConvDate(c.lastMessageTime)}</span>
+        </div>
+        <div class="conv-menu-wrap">
+          <button class="conv-menu-btn" data-id="${c.customerId}">⋮</button>
+          <div class="conv-menu" data-id="${c.customerId}">
+            <button class="conv-menu-delete" data-id="${c.customerId}">Delete Chat</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function formatConvDate(dateStr){
+    return new Date(dateStr).toLocaleDateString('en-US', { month:'numeric', day:'numeric', year:'numeric' });
+  }
+
+  document.getElementById('messagesSearch').addEventListener('input', (e)=>{
+    const q = e.target.value.toLowerCase();
+    renderConversationList(allConversations.filter(c => c.customerName.toLowerCase().includes(q)));
+  });
+
+  async function openConversation(customerId){
+    selectedCustomerId = customerId;
+    document.querySelectorAll('.conv-item').forEach(el => el.classList.toggle('active', el.dataset.id === customerId));
+
+    const replyPane = document.getElementById('messagesReplyPane');
+    replyPane.innerHTML = '<div class="empty-state">Loading...</div>';
+
+    // Mobile: slide to full-screen chat
+    document.getElementById('messagesLayout').classList.add('mobile-chat-open');
+    document.getElementById('messagesListPane').classList.add('mobile-hidden');
+    replyPane.classList.add('mobile-open');
+
+    try{
+      const res = await fetch(`${API_BASE}/admin/messages/${customerId}`, { headers: authHeaders() });
+      if(!res.ok) throw new Error('not found');
+      const convo = await res.json();
+      renderReplyPane(convo);
+      loadMessages(); // refresh list so this conversation's unread count clears
+    }catch(err){
+      replyPane.innerHTML = '<div class="empty-state">Could not load this conversation.</div>';
+    }
+  }
+
+  function renderReplyPane(convo){
+    const pane = document.getElementById('messagesReplyPane');
+    pane.innerHTML = `
+      <div class="reply-pane-header">
+        <button class="reply-back-btn" id="replyBackBtn">←</button>
+        <div>
+          <strong>${convo.customerName}</strong><br>
+          <span style="font-size:0.75rem; color:var(--brown-mid);">${convo.customerEmail || ''}</span>
+        </div>
+      </div>
+      <div class="reply-thread" id="replyThread">
+        ${convo.messages.map(m => `
+          <div class="reply-row ${m.sender}">
+            <div>
+              <div class="reply-bubble">${m.text}</div>
+              <div class="reply-bubble-time" style="text-align:${m.sender === 'admin' ? 'right' : 'left'};">${new Date(m.createdAt).toLocaleString()}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <form class="reply-form" id="replyForm">
+        <textarea id="replyText" placeholder="Type a reply..." required></textarea>
+        <button type="submit">Send</button>
+      </form>
+    `;
+
+    const thread = document.getElementById('replyThread');
+    thread.scrollTop = thread.scrollHeight;
+
+    document.getElementById('replyBackBtn').addEventListener('click', () => {
+      document.getElementById('messagesReplyPane').classList.remove('mobile-open');
+      document.getElementById('messagesListPane').classList.remove('mobile-hidden');
+    });
+
+    document.getElementById('replyForm').addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const text = document.getElementById('replyText').value.trim();
+      if(!text) return;
+      await fetch(`${API_BASE}/admin/messages/${convo.customerId}/reply`, {
+        method:'POST', headers: authHeaders(), body: JSON.stringify({ text })
+      });
+      openConversation(convo.customerId); // reload thread with the new reply included
+    });
+  }
+
+  document.getElementById('refreshMessages').addEventListener('click', loadMessages);
+
+  document.getElementById('messagesListPane').addEventListener('click', async (e)=>{
+    const menuBtn = e.target.closest('.conv-menu-btn');
+    if(menuBtn){
+      e.stopPropagation();
+      const menu = menuBtn.nextElementSibling;
+      document.querySelectorAll('.conv-menu.show').forEach(m => { if(m !== menu) m.classList.remove('show'); });
+      menu.classList.toggle('show');
+      return;
+    }
+
+    const deleteBtn = e.target.closest('.conv-menu-delete');
+    if(deleteBtn){
+      e.stopPropagation();
+      const id = deleteBtn.dataset.id;
+      await fetch(`${API_BASE}/admin/messages/${id}`, { method:'DELETE', headers: authHeaders() });
+      if(selectedCustomerId === id){
+        selectedCustomerId = null;
+      }
+      loadMessages();
+      return;
+    }
+
+    const item = e.target.closest('.conv-item');
+    if(!item) return;
+    openConversation(item.dataset.id);
+  });
+
+  document.addEventListener('click', (e)=>{
+    if(!e.target.closest('.conv-menu-wrap')){
+      document.querySelectorAll('.conv-menu.show').forEach(m => m.classList.remove('show'));
+    }
+  });
+
+  // ---- Reviews ----
+  function reviewStars(rating){
+    return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+  }
+
+  async function loadReviews(){
+    try{
+      const res = await fetch(`${API_BASE}/admin/reviews`, { headers: authHeaders() });
+      const reviews = await res.json();
+      const list = document.getElementById('reviewsList');
+      const empty = document.getElementById('reviewsEmpty');
+
+      if(!reviews.length){ list.innerHTML=''; empty.style.display='block'; return; }
+      empty.style.display = 'none';
+
+      list.innerHTML = reviews.map(r => `
+        <div class="review-item">
+          <div class="review-item-top">
+            <span class="review-item-name">${r.customerName}</span>
+            <span class="review-item-stars">${reviewStars(r.rating)}</span>
+          </div>
+          <div class="review-item-text">"${r.feedback}"</div>
+          <div class="review-item-meta">
+            <span>${r.rating} Stars | ${new Date(r.createdAt).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})}</span>
+            <button class="del-btn review-del-btn" data-id="${r._id}">Delete</button>
+          </div>
+        </div>
+      `).join('');
+    }catch(err){
+      document.getElementById('reviewsEmpty').style.display = 'block';
+      document.getElementById('reviewsEmpty').textContent = 'Could not load reviews — is the backend running?';
+    }
+  }
+
+  document.getElementById('refreshReviews').addEventListener('click', loadReviews);
+
+  document.getElementById('reviewsList').addEventListener('click', async (e)=>{
+    const delBtn = e.target.closest('.review-del-btn');
+    if(!delBtn) return;
+    if(!confirm('Delete this review?')) return;
+    await fetch(`${API_BASE}/admin/reviews/${delBtn.dataset.id}`, { method:'DELETE', headers: authHeaders() });
+    loadReviews();
+  });
+</script>
+
+</body>
+</html>

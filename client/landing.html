@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Brew & Bliss Coffee House - Fresh coffee, delicious treats and a cozy atmosphere.">
+<title>CaféNova Coffee House</title>
+
+<link rel="stylesheet" href="landing.css">
+</head>
+
+<body>
+
+<header>
+  <div class="container navbar">
+    <a href="#home" class="logo">
+      <img src="images/logo.png" alt="CaféNova" class="logo-img">
+      <span>CaféNova</span>
+    </a>
+
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#location">Location</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="cart-button" id="cartButton" aria-label="Open cart">
+        🛒
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+
+      <button class="btn btn-primary" id="getStartedBtn">Get Started</button>
+
+      <div class="profile-wrap" id="profileWrap">
+        <button class="profile-icon-btn" id="profileIconBtn" aria-label="Account menu">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span class="profile-unread-badge" id="profileUnreadBadge" style="display:none;">0</span>
+        </button>
+
+        <div class="profile-dropdown" id="profileDropdown">
+          <div class="profile-dropdown-name" id="profileDropdownName"></div>
+          <button class="profile-logout-btn" id="myMessagesBtn">
+            💬 My Messages <span class="profile-unread-badge-inline" id="myMessagesInlineBadge" style="display:none;">0</span>
+          </button>
+          <button class="profile-logout-btn" id="profileLogoutBtn">🚪 Logout</button>
+        </div>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        ☰
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+
+    <span>WELCOME TO CAFÉNOVA</span>
+
+    <h1>Where Every Cup<br>Feels Like Home...</h1>
+
+    <p>
+      Carefully brewed coffee, thoughtfully crafted treats, and a warm,
+      inviting space for meaningful conversations, creative moments,
+      and time well spent.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#menu" class="btn btn-gold">Explore Menu</a>
+      <a href="#about" class="btn btn-outline">Our Story</a>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section features">
+  <div class="container">
+    <div class="section-title reveal">
+      <span>Why CaféNova</span>
+      <h2>Made With Care</h2>
+      <p>
+        Every cup is prepared with quality ingredients and genuine care.
+      </p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">☕</div>
+        <h3>Freshly Brewed</h3>
+        <p>Premium beans brewed fresh for every order.</p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">🌿</div>
+        <h3>Quality Ingredients</h3>
+        <p>Carefully selected ingredients for delicious flavor.</p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">❤️</div>
+        <h3>Cozy Experience</h3>
+        <p>A welcoming space for coffee, conversations, and calm.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section menu-section" id="menu">
+  <div class="container">
+
+    <div class="section-title reveal">
+      <span>Our Menu</span>
+      <h2>Customer Favorites</h2>
+      <p>Choose your favorite coffee and add it to your order.</p>
+    </div>
+
+    <div class="menu-showcase">
+
+      <!-- LEFT: COFFEE NAMES + PRICES -->
+      <div class="menu-list reveal">
+
+        <button type="button"
+          class="menu-item active"
+          data-name="Americano"
+          data-price="130"
+          data-image="images/americano.jpg"
+          data-alt="Americano">
+
+          <span class="menu-item-name">Americano</span>
+          <span class="menu-item-price">₹130</span>
+
+        </button>
+
+        <button type="button"
+          class="menu-item"
+          data-name="Cappuccino"
+          data-price="160"
+          data-image="images/cappuccino.jpg"
+          data-alt="Cappuccino">
+
+          <span class="menu-item-name">Cappuccino</span>
+          <span class="menu-item-price">₹160</span>
+
+        </button>
+
+        <button type="button"
+          class="menu-item"
+          data-name="Cafe Latte"
+          data-price="170"
+          data-image="images/cafelatte.jpg"
+          data-alt="Cafe Latte">
+
+          <span class="menu-item-name">Cafe Latte</span>
+          <span class="menu-item-price">₹170</span>
+
+        </button>
+
+        <button type="button"
+          class="menu-item"
+          data-name="Mocha"
+          data-price="190"
+          data-image="images/mocha.jpg"
+          data-alt="Mocha">
+
+          <span class="menu-item-name">Mocha</span>
+          <span class="menu-item-price">₹190</span>
+
+        </button>
+
+        <button type="button"
+          class="menu-item"
+          data-name="Cold Coffee"
+          data-price="180"
+          data-image="images/coldcoffee.jpg"
+          data-alt="Cold Coffee">
+
+          <span class="menu-item-name">Cold Coffee</span>
+          <span class="menu-item-price">₹180</span>
+
+        </button>
+
+        <button type="button"
+          class="menu-item"
+          data-name="Caramel Latte"
+          data-price="200"
+          data-image="images/caramellatte.jpg"
+          data-alt="Caramel Latte">
+
+          <span class="menu-item-name">Caramel Latte</span>
+          <span class="menu-item-price">₹200</span>
+
+        </button>
+
+        <button type="button"
+          class="menu-item"
+          data-name="Espresso"
+          data-price="110"
+          data-image="images/espresso.jpg"
+          data-alt="Espresso">
+
+          <span class="menu-item-name">Espresso</span>
+          <span class="menu-item-price">₹110</span>
+
+        </button>
+
+        <button type="button"
+          class="menu-item"
+          data-name="Hazelnut Coffee"
+          data-price="190"
+          data-image="images/hazelnut.jpg"
+          data-alt="Hazelnut Coffee">
+
+          <span class="menu-item-name">Hazelnut Coffee</span>
+          <span class="menu-item-price">₹190</span>
+
+        </button>
+
+        <button type="button"
+          class="menu-item"
+          data-name="Vanilla Latte"
+          data-price="190"
+          data-image="images/vanillalatte.jpg"
+          data-alt="Vanilla Latte">
+
+          <span class="menu-item-name">Vanilla Latte</span>
+          <span class="menu-item-price">₹190</span>
+
+        </button>
+
+      </div>
+
+
+      <!-- RIGHT: LARGE IMAGE + ADD TO CART -->
+      <div class="menu-preview reveal">
+
+        <div class="menu-preview-image-wrap">
+
+          <img
+            id="menuPreviewImage"
+            class="menu-preview-image"
+            src="images/americano.jpg"
+            alt="Americano">
+
+          <button
+            type="button"
+            id="menuPreviewAdd"
+            class="add-cart"
+            data-name="Americano"
+            data-price="130">
+
+            Add to Cart
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section about" id="about">
+  <div class="container about-grid">
+    <img class="about-image reveal"
+      src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1000&q=85"
+      alt="CaféNova coffee shop">
+
+    <div class="about-content reveal">
+      <span>Our Story</span>
+      <h2>A Little Coffee House With A Lot Of Heart</h2>
+      <p>
+        CaféNova was created for people who believe coffee is more
+        than a drink. It is a reason to pause, connect, and enjoy the moment.
+      </p>
+      <p>
+        From carefully selected beans to freshly prepared drinks,
+        every detail is designed to make your visit memorable.
+      </p>
+      <a href="#contact" class="btn btn-gold">Visit Us</a>
+    </div>
+  </div>
+</section>
+
+<section class="section gallery" id="gallery">
+  <div class="container">
+    <div class="section-title reveal">
+      <span>Gallery</span>
+      <h2>Moments at CaféNova</h2>
+      <p>A glimpse of our coffee, treats, and cozy atmosphere.</p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&w=800&q=80" alt="Coffee shop">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80" alt="Cafe interior">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=800&q=80" alt="Coffee beans">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80" alt="Coffee cup">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section reviews" id="reviews">
+  <div class="container">
+    <div class="section-title reveal">
+      <span>Reviews</span>
+      <h2>What Our Guests Say</h2>
+    </div>
+
+    <div class="review-grid" id="reviewGrid">
+      <div class="review-card reveal"><p>Loading reviews...</p></div>
+    </div>
+
+    <div class="review-form-wrap reveal" id="reviewFormWrap">
+      <h3>Share Your Experience🤎</h3>
+      <form id="reviewForm">
+        <label class="review-form-label">How would you rate us?</label>
+        <div class="star-input" id="starInput">
+          <span data-value="1">☆</span><span data-value="2">☆</span><span data-value="3">☆</span><span data-value="4">☆</span><span data-value="5">☆</span>
+        </div>
+
+        <label class="review-form-label" for="reviewFeedback">Your Feedback</label>
+        <textarea id="reviewFeedback" placeholder="Write your experience here..." required></textarea>
+
+        <div class="auth-error" id="reviewLoginRequiredMsg" style="display:none;">
+          Please login first to leave a review. Use <strong>Get Started</strong> in the navbar.
+        </div>
+        <div class="auth-error" id="reviewErrorMsg" style="display:none;"></div>
+
+        <button class="btn btn-primary" type="submit">Submit Review</button>
+      </form>
+
+      <div class="review-success" id="reviewSuccessMsg" style="display:none;">
+        Review submitted successfully! ☕🤎
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section location" id="location">
+  <div class="container">
+    <div class="section-title reveal">
+      <span>Find Us</span>
+      <h2>Visit CaféNova</h2>
+    </div>
+
+    <div class="location-grid">
+      <div class="location-card reveal">
+        <h3>📍 Location</h3>
+        <p>CaféNova Coffee House</p>
+        <p>123 Coffee Street</p>
+        <p>Hyderabad, Telangana</p>
+        <p>India</p>
+      </div>
+
+      <div class="location-card reveal">
+        <h3>🕐 Opening Hours</h3>
+        <div class="hours">
+          <div><span>Monday - Friday</span><span>8 AM - 9 PM</span></div>
+          <div><span>Saturday</span><span>8 AM - 10 PM</span></div>
+          <div><span>Sunday</span><span>9 AM - 9 PM</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section contact" id="contact">
+  <div class="container">
+    <div class="section-title reveal">
+      <span>Contact</span>
+      <h2>Let's Talk Coffee</h2>
+      <p>Have a question? We'd love to hear from you.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <h3>Get In Touch</h3>
+        <p>📍 123 Coffee Street, Hyderabad</p>
+        <p>📞 +91 98765 43210</p>
+        <p>✉️ hello@cafenova.com</p>
+        <p>
+          Whether you have a question about our menu or just want
+          to say hello, feel free to contact us.
+        </p>
+      </div>
+
+      <form class="contact-form reveal" id="contactForm">
+        <div class="form-group">
+          <label for="contactMessage">Message</label>
+          <textarea id="contactMessage" required placeholder="Ask us anything — flavors, hours, allergens..."></textarea>
+        </div>
+
+        <div class="auth-error" id="contactLoginRequiredMsg" style="display:none;">
+          Please login first to send a message. Use <strong>Get Started</strong> in the navbar.
+        </div>
+
+        <button class="btn btn-primary" type="submit">Send Message</button>
+      </form>
+
+      <div class="contact-success reveal" id="contactSuccess" style="display:none;">
+        <p>Message sent successfully! ☕</p>
+        <button class="btn btn-gold" id="viewConversationBtn">View Conversation</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3 style="display:flex; align-items:center; gap:8px;">
+          <img src="images/logo.png" alt="CaféNova" style="height:28px; width:auto;">
+          CaféNova
+        </h3>
+        <p>
+          Fresh coffee, delicious treats, and good moments.
+          Your cozy neighborhood coffee house.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <div class="footer-links">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#menu">Menu</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h3>Stay Updated</h3>
+        <p>Subscribe for coffee news and special offers.</p>
+        <form class="newsletter" id="newsletterForm">
+          <input type="email" id="newsletterEmail" placeholder="Your email" required>
+          <button type="submit">Join</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 CaféNova Coffee House. All rights reserved.
+    </div>
+  </div>
+</footer>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h2>Your Order</h2>
+    <button class="close-btn" id="closeCart">×</button>
+  </div>
+
+  <div class="cart-items" id="cartItems">
+    <div class="empty-cart">Your cart is empty.</div>
+  </div>
+
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">₹0</span>
+    </div>
+
+    <button class="btn btn-primary" id="checkoutButton" style="width:100%;">
+      Checkout
+    </button>
+
+    <div class="auth-error" id="loginRequiredMsg" style="display:none; text-align:center; margin-top:10px;">
+      Please login first to place your order. Use <strong>Get Started</strong> in the navbar.
+    </div>
+
+    <div class="checkout-form" id="checkoutForm">
+      <h3>Table Details</h3>
+
+      <form id="orderForm">
+        <div class="form-group">
+          <label for="tableNumber">Table Number</label>
+          <input
+            id="tableNumber"
+            type="text"
+            placeholder="Enter table number"
+            required
+          >
+        </div>
+
+        <button class="btn btn-gold" type="submit" style="width:100%;">
+          Place Order
+        </button>
+      </form>
+    </div>
+  </div>
+</aside>
+
+<div class="modal-overlay" id="authModal">
+  <div class="modal">
+    <button class="modal-close" id="closeAuth">×</button>
+
+    <h2 id="authTitle">Welcome Back</h2>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="loginTab">Sign In</button>
+      <button class="auth-tab" id="signupTab">Sign Up</button>
+    </div>
+
+    <form class="auth-form active" id="loginForm">
+      <div class="form-group">
+        <label for="loginEmail">Email</label>
+        <input
+          id="loginEmail"
+          type="email"
+          autocomplete="email"
+          placeholder="Enter your email"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="loginPassword">Password</label>
+
+        <div class="password-wrap">
+          <input
+            id="loginPassword"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Enter your password"
+            required>
+
+          <button
+            type="button"
+            class="password-toggle"
+            data-target="loginPassword">
+            <svg class="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="auth-error" id="loginError"></div>
+
+      <button class="btn btn-primary" type="submit" style="width:100%;">
+        Sign In
+      </button>
+
+      <div class="auth-switch">
+        Don't have an account?
+        <button type="button" id="goSignup">Create one</button>
+      </div>
+    </form>
+
+    <form class="auth-form" id="signupForm">
+      <div class="form-group">
+        <label for="signupName">Name</label>
+        <input
+          id="signupName"
+          type="text"
+          autocomplete="name"
+          placeholder="Your name"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="signupEmail">Email</label>
+        <input
+          id="signupEmail"
+          type="email"
+          autocomplete="email"
+          placeholder="Your email"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="signupPassword">Password</label>
+
+        <div class="password-wrap">
+          <input
+            id="signupPassword"
+            type="password"
+            autocomplete="new-password"
+            placeholder="Create a password"
+            required>
+
+          <button
+            type="button"
+            class="password-toggle"
+            data-target="signupPassword">
+            <svg class="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="auth-error" id="signupError"></div>
+      <div class="auth-success" id="signupSuccess"></div>
+
+      <button class="btn btn-primary" type="submit" style="width:100%;">
+        Create Account
+      </button>
+
+      <div class="auth-switch">
+        Already have an account?
+        <button type="button" id="goLogin">Sign in</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="orderSuccessModal">
+  <div class="modal order-success-modal">
+    <div class="order-success-icon">✓</div>
+    <h2>Order Placed Successfully!</h2>
+    <p>Thank you for your order.</p>
+
+    <div class="order-success-label">Order Number</div>
+    <div class="order-success-code" id="orderSuccessCode">#BB0000</div>
+
+    <p class="order-success-note">
+      Your order has been received and is being prepared.
+    </p>
+
+    <button class="btn btn-primary" id="orderSuccessDone" style="width:100%;">
+      Done
+    </button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="clearChatConfirmModal" style="z-index:4000;">
+  <div class="modal" style="text-align:center;">
+    <h2>Clear Chat?</h2>
+    <p style="color:var(--muted); margin-bottom:26px;">
+      This will permanently delete this conversation and cannot be undone.
+    </p>
+    <div style="display:flex; gap:12px;">
+      <button type="button" class="btn btn-outline" id="cancelClearChat" style="flex:1;">Cancel</button>
+      <button type="button" class="btn" id="confirmClearChat" style="flex:1; background:#B33C3C; color:var(--white);">Clear Chat</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="myMessagesModal">
+  <div class="modal my-messages-modal">
+    <div class="chat-header">
+      <button class="chat-back-btn" id="closeMyMessages">←</button>
+      <div style="flex:1;">
+        <div class="chat-header-title" style="display:flex; align-items:center; gap:8px;">
+          <img src="images/logo.png" alt="CaféNova" style="height:22px; width:auto;">
+          CaféNova
+        </div>
+        <div class="chat-header-sub">Customer Support</div>
+      </div>
+      <button type="button" id="clearMyMessagesBtn" class="chat-clear-btn">Clear Chat</button>
+    </div>
+
+    <div class="my-messages-list" id="myMessagesList"></div>
+
+    <form class="chat-composer" id="myMessagesComposer">
+      <input type="text" id="myMessagesInput" placeholder="Type a message..." required autocomplete="off">
+      <button type="submit">Send</button>
+    </form>
+  </div>
+</div>
+
+<script>
+const API_BASE = 'http://localhost:5000/api';
+
+let cart = [];
+let customerToken = null;
+let customerName = null;
+
+const cartButton = document.getElementById('cartButton');
+const cartDrawer = document.getElementById('cartDrawer');
+const closeCart = document.getElementById('closeCart');
+const cartItems = document.getElementById('cartItems');
+const cartCount = document.getElementById('cartCount');
+const cartTotal = document.getElementById('cartTotal');
+
+const authModal = document.getElementById('authModal');
+const closeAuth = document.getElementById('closeAuth');
+
+const loginTab = document.getElementById('loginTab');
+const signupTab = document.getElementById('signupTab');
+const loginForm = document.getElementById('loginForm');
+const signupForm = document.getElementById('signupForm');
+
+const loginError = document.getElementById('loginError');
+const signupError = document.getElementById('signupError');
+const signupSuccess = document.getElementById('signupSuccess');
+
+const getStartedBtn = document.getElementById('getStartedBtn');
+const profileWrap = document.getElementById('profileWrap');
+const profileIconBtn = document.getElementById('profileIconBtn');
+const profileDropdown = document.getElementById('profileDropdown');
+const profileDropdownName = document.getElementById('profileDropdownName');
+const profileLogoutBtn = document.getElementById('profileLogoutBtn');
+const checkoutButton = document.getElementById('checkoutButton');
+const checkoutForm = document.getElementById('checkoutForm');
+const loginRequiredMsg = document.getElementById('loginRequiredMsg');
+
+const orderSuccessModal = document.getElementById('orderSuccessModal');
+const orderSuccessCode = document.getElementById('orderSuccessCode');
+const orderSuccessDone = document.getElementById('orderSuccessDone');
+
+function showOrderSuccess(orderCode) {
+  orderSuccessCode.textContent = `#${orderCode}`;
+  orderSuccessModal.classList.add('show');
+}
+
+orderSuccessDone.addEventListener('click', () => {
+  orderSuccessModal.classList.remove('show');
+});
+
+orderSuccessModal.addEventListener('click', event => {
+  if (event.target === orderSuccessModal) {
+    orderSuccessModal.classList.remove('show');
+  }
+});
+
+function openCart() {
+  cartDrawer.classList.add('open');
+}
+
+function closeCartDrawer() {
+  cartDrawer.classList.remove('open');
+}
+
+cartButton.addEventListener('click', openCart);
+closeCart.addEventListener('click', closeCartDrawer);
+
+function updateCart() {
+  cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  if (cart.length === 0) {
+    cartItems.innerHTML = '<div class="empty-cart">Your cart is empty.</div>';
+    cartTotal.textContent = '₹0';
+    return;
+  }
+
+  let total = 0;
+
+  cartItems.innerHTML = cart.map((item, index) => {
+    const itemTotal = item.price * item.quantity;
+    total += itemTotal;
+
+    return `
+      <div class="cart-item">
+        <div>
+          <h4>${item.name}</h4>
+          <p>₹${item.price} each</p>
+
+          <div class="quantity-controls">
+            <button onclick="changeQuantity(${index}, -1)">−</button>
+            <span>${item.quantity}</span>
+            <button onclick="changeQuantity(${index}, 1)">+</button>
+          </div>
+        </div>
+
+        <strong>₹${itemTotal}</strong>
+      </div>
+    `;
+  }).join('');
+
+  cartTotal.textContent = `₹${total}`;
+}
+
+function addToCart(name, price) {
+  const existing = cart.find(item => item.name === name);
+
+  if (existing) {
+    existing.quantity++;
+  } else {
+    cart.push({
+      name,
+      price: Number(price),
+      quantity: 1
+    });
+  }
+
+  updateCart();
+  openCart();
+}
+
+document.querySelectorAll('.add-cart').forEach(button => {
+  button.addEventListener('click', () => {
+    addToCart(button.dataset.name, button.dataset.price);
+  });
+});
+
+function changeQuantity(index, amount) {
+  cart[index].quantity += amount;
+
+  if (cart[index].quantity <= 0) {
+    cart.splice(index, 1);
+  }
+
+  updateCart();
+}
+
+function openAuthModal() {
+  authModal.classList.add('show');
+  showLogin();
+}
+
+getStartedBtn.addEventListener('click', openAuthModal);
+
+function closeAuthModal() {
+  authModal.classList.remove('show');
+  loginError.textContent = '';
+  signupError.textContent = '';
+  signupSuccess.textContent = '';
+}
+
+closeAuth.addEventListener('click', closeAuthModal);
+
+authModal.addEventListener('click', event => {
+  if (event.target === authModal) {
+    closeAuthModal();
+  }
+});
+
+function showLogin() {
+  loginTab.classList.add('active');
+  signupTab.classList.remove('active');
+  loginForm.classList.add('active');
+  signupForm.classList.remove('active');
+  document.getElementById('authTitle').textContent = 'Welcome Back';
+  loginError.textContent = '';
+}
+
+function showSignup() {
+  loginTab.classList.remove('active');
+  signupTab.classList.add('active');
+  loginForm.classList.remove('active');
+  signupForm.classList.add('active');
+  document.getElementById('authTitle').textContent = 'Create Account';
+  signupError.textContent = '';
+  signupSuccess.textContent = '';
+}
+
+loginTab.addEventListener('click', showLogin);
+signupTab.addEventListener('click', showSignup);
+
+document.getElementById('goSignup').addEventListener('click', showSignup);
+document.getElementById('goLogin').addEventListener('click', showLogin);
+
+const EYE_ICON = '<svg class="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+const EYE_OFF_ICON = '<svg class="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a20.6 20.6 0 0 1 5.06-5.94"></path><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 7 11 7a20.6 20.6 0 0 1-2.16 3.19"></path><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
+
+document.querySelectorAll('.password-toggle').forEach(button => {
+  button.addEventListener('click', () => {
+    const input = document.getElementById(button.dataset.target);
+
+    if (input.type === 'password') {
+      input.type = 'text';
+      button.innerHTML = EYE_OFF_ICON;
+    } else {
+      input.type = 'password';
+      button.innerHTML = EYE_ICON;
+    }
+  });
+});
+
+loginForm.addEventListener('submit', async event => {
+  event.preventDefault();
+
+  loginError.textContent = '';
+
+  const email = document.getElementById('loginEmail')
+    .value
+    .trim()
+    .toLowerCase();
+
+  const password = document.getElementById('loginPassword').value;
+
+  if (!email || !password) {
+    loginError.textContent = 'Please enter your email and password.';
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_BASE}/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email,
+        password
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Invalid email or password');
+    }
+
+    if (data.role === 'admin') {
+      window.location.href =
+        `admin.html?token=${encodeURIComponent(data.token)}`;
+      return;
+    }
+
+    customerToken = data.token;
+    customerName = data.name;
+
+    onCustomerLogin(data);
+
+  } catch (error) {
+    loginError.textContent =
+      error.message || 'Invalid email or password';
+  }
+});
+
+function onCustomerLogin(data) {
+  profileDropdownName.textContent = data.name || '';
+  profileWrap.classList.add('show');
+  getStartedBtn.style.display = 'none';
+  loginRequiredMsg.style.display = 'none';
+
+  closeAuthModal();
+  refreshUnreadBadge();
+}
+
+signupForm.addEventListener('submit', async event => {
+  event.preventDefault();
+
+  signupError.textContent = '';
+  signupSuccess.textContent = '';
+
+  const name = document.getElementById('signupName')
+    .value
+    .trim();
+
+  const email = document.getElementById('signupEmail')
+    .value
+    .trim()
+    .toLowerCase();
+
+  const password =
+    document.getElementById('signupPassword').value;
+
+  if (!name || !email || !password) {
+    signupError.textContent =
+      'Please fill in all fields.';
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_BASE}/customers/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Could not create account');
+    }
+
+    signupSuccess.textContent =
+      'Account created successfully. Please sign in.';
+
+    document.getElementById('loginEmail').value = email;
+
+    setTimeout(() => {
+      showLogin();
+    }, 1000);
+
+  } catch (error) {
+    signupError.textContent =
+      error.message || 'Could not create account';
+  }
+});
+
+checkoutButton.addEventListener('click', () => {
+  if (cart.length === 0) {
+    alert('Your cart is empty.');
+    return;
+  }
+
+  if (!customerToken) {
+    loginRequiredMsg.style.display = 'block';
+    return;
+  }
+
+  loginRequiredMsg.style.display = 'none';
+  checkoutForm.classList.add('show');
+  checkoutButton.style.display = 'none';
+});
+
+document.getElementById('orderForm').addEventListener('submit', async event => {
+  event.preventDefault();
+
+  if (!customerToken) {
+    loginRequiredMsg.style.display = 'block';
+    return;
+  }
+
+  if (cart.length === 0) {
+    alert('Your cart is empty.');
+    return;
+  }
+
+  const tableNumber = document.getElementById('tableNumber')
+    .value
+    .trim();
+
+  const items = cart.map(item => ({
+    name: item.name,
+    qty: item.quantity,
+    price: item.price
+  }));
+
+  try {
+    const response = await fetch(`${API_BASE}/orders`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${customerToken}`
+      },
+      body: JSON.stringify({
+        items,
+        tableNumber
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Could not place order');
+    }
+
+    cart = [];
+    updateCart();
+
+    document.getElementById('orderForm').reset();
+    checkoutForm.classList.remove('show');
+    checkoutButton.style.display = 'block';
+
+    closeCartDrawer();
+
+    showOrderSuccess(data.orderCode);
+
+  } catch (error) {
+    alert(error.message || 'Could not place order.');
+  }
+});
+
+profileIconBtn.addEventListener('click', event => {
+  event.stopPropagation();
+  profileDropdown.classList.toggle('show');
+});
+
+document.addEventListener('click', event => {
+  if (!profileWrap.contains(event.target)) {
+    profileDropdown.classList.remove('show');
+  }
+});
+
+profileLogoutBtn.addEventListener('click', () => {
+  customerToken = null;
+  customerName = null;
+
+  profileDropdown.classList.remove('show');
+  profileWrap.classList.remove('show');
+  getStartedBtn.style.display = 'inline-block';
+  loginRequiredMsg.style.display = 'none';
+  updateUnreadBadge(0);
+
+  checkoutForm.classList.remove('show');
+  checkoutButton.style.display = 'block';
+});
+
+// ---- My Messages (single persistent chat with Brew & Bliss) ----
+const myMessagesModal = document.getElementById('myMessagesModal');
+const myMessagesList = document.getElementById('myMessagesList');
+const closeMyMessages = document.getElementById('closeMyMessages');
+const myMessagesBtn = document.getElementById('myMessagesBtn');
+const myMessagesComposer = document.getElementById('myMessagesComposer');
+const myMessagesInput = document.getElementById('myMessagesInput');
+const clearMyMessagesBtn = document.getElementById('clearMyMessagesBtn');
+const profileUnreadBadge = document.getElementById('profileUnreadBadge');
+const myMessagesInlineBadge = document.getElementById('myMessagesInlineBadge');
+
+function formatChatTime(dateStr) {
+  return new Date(dateStr).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function renderChatMessages(messages) {
+  if (!messages.length) {
+    myMessagesList.innerHTML = '<div class="msg-empty">No messages yet. Say hello!</div>';
+    return;
+  }
+  myMessagesList.innerHTML = messages.map(m => `
+    <div class="chat-row ${m.sender}">
+      <div>
+        <div class="chat-bubble">${m.text}</div>
+        <div class="chat-time" style="text-align:${m.sender === 'customer' ? 'right' : 'left'};">${formatChatTime(m.createdAt)}</div>
+      </div>
+    </div>
+  `).join('');
+  myMessagesList.scrollTop = myMessagesList.scrollHeight;
+}
+
+// This single function is called by BOTH entry points (Contact -> View
+// Conversation, and Profile -> Messages) — same modal, same data, same
+// conversation. Opening it also clears the unread badge (backend marks
+// admin replies as read-by-customer as part of this fetch).
+async function openMyMessages() {
+  profileDropdown.classList.remove('show');
+  myMessagesModal.classList.add('show');
+
+  // Behave like real page navigation: lock the landing page so it can't
+  // scroll underneath, and push a history entry so the browser Back
+  // button closes Messages instead of leaving the site.
+  document.body.style.overflow = 'hidden';
+  if (!history.state || !history.state.messagesOpen) {
+    history.pushState({ messagesOpen: true }, '', '#messages');
+  }
+
+  myMessagesList.innerHTML = '<div class="msg-empty">Loading...</div>';
+  try {
+    const res = await fetch(`${API_BASE}/contact/mine`, {
+      headers: { 'Authorization': `Bearer ${customerToken}` }
+    });
+    if (!res.ok) throw new Error('Could not load messages');
+    const messages = await res.json();
+    renderChatMessages(messages);
+    updateUnreadBadge(0); // opening the chat clears unread, matching backend
+  } catch (err) {
+    myMessagesList.innerHTML = '<div class="msg-empty">Could not load your messages — is the backend running?</div>';
+  }
+}
+
+// Single source of truth for closing Messages, whatever triggered it
+// (the ← button, browser Back, or clicking outside).
+function closeMyMessagesView() {
+  myMessagesModal.classList.remove('show');
+  document.body.style.overflow = '';
+  resetContactFormView();
+}
+
+// Browser Back (or forward) while Messages is open closes it, exactly
+// like navigating back from a real separate page would.
+window.addEventListener('popstate', (event) => {
+  if (!event.state || !event.state.messagesOpen) {
+    closeMyMessagesView();
+  }
+});
+
+function updateUnreadBadge(count) {
+  if (count > 0) {
+    profileUnreadBadge.style.display = 'flex';
+    profileUnreadBadge.textContent = count;
+    myMessagesInlineBadge.style.display = 'inline-block';
+    myMessagesInlineBadge.textContent = count;
+  } else {
+    profileUnreadBadge.style.display = 'none';
+    myMessagesInlineBadge.style.display = 'none';
+  }
+}
+
+async function refreshUnreadBadge() {
+  if (!customerToken) return;
+  try {
+    const res = await fetch(`${API_BASE}/contact/unread-count`, {
+      headers: { 'Authorization': `Bearer ${customerToken}` }
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+    updateUnreadBadge(data.count);
+  } catch (err) { /* silent — badge just won't update this cycle */ }
+}
+
+myMessagesBtn.addEventListener('click', openMyMessages);
+
+function resetContactFormView() {
+  document.getElementById('contactForm').style.display = 'block';
+  document.getElementById('contactSuccess').style.display = 'none';
+}
+
+closeMyMessages.addEventListener('click', () => {
+  if (history.state && history.state.messagesOpen) {
+    history.back(); // triggers popstate -> closeMyMessagesView()
+  } else {
+    closeMyMessagesView();
+  }
+});
+
+myMessagesModal.addEventListener('click', event => {
+  if (event.target === myMessagesModal) {
+    closeMyMessages.click();
+  }
+});
+
+const clearChatConfirmModal = document.getElementById('clearChatConfirmModal');
+const cancelClearChat = document.getElementById('cancelClearChat');
+const confirmClearChat = document.getElementById('confirmClearChat');
+
+clearMyMessagesBtn.addEventListener('click', () => {
+  clearChatConfirmModal.classList.add('show');
+});
+
+cancelClearChat.addEventListener('click', () => {
+  clearChatConfirmModal.classList.remove('show');
+});
+
+clearChatConfirmModal.addEventListener('click', event => {
+  if (event.target === clearChatConfirmModal) {
+    clearChatConfirmModal.classList.remove('show');
+  }
+});
+
+confirmClearChat.addEventListener('click', async () => {
+  try {
+    const res = await fetch(`${API_BASE}/contact/mine`, {
+      method: 'DELETE',
+      headers: { 'Authorization': `Bearer ${customerToken}` }
+    });
+    if (!res.ok) throw new Error('Could not clear messages');
+    renderChatMessages([]);
+    updateUnreadBadge(0);
+  } catch (err) {
+    alert('Could not clear your messages. Please try again.');
+  } finally {
+    clearChatConfirmModal.classList.remove('show');
+  }
+});
+
+myMessagesComposer.addEventListener('submit', async event => {
+  event.preventDefault();
+  const text = myMessagesInput.value.trim();
+  if (!text) return;
+
+  try {
+    const res = await fetch(`${API_BASE}/contact`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${customerToken}`
+      },
+      body: JSON.stringify({ text })
+    });
+    if (!res.ok) throw new Error('Could not send message');
+    myMessagesInput.value = '';
+    openMyMessages(); // reload the same conversation with the new message included
+  } catch (err) {
+    alert('Could not send your message. Please try again.');
+  }
+});
+
+document.getElementById('contactForm').addEventListener('submit', async event => {
+  event.preventDefault();
+
+  const contactLoginMsg = document.getElementById('contactLoginRequiredMsg');
+  const contactForm = document.getElementById('contactForm');
+  const contactSuccess = document.getElementById('contactSuccess');
+
+  if (!customerToken) {
+    contactLoginMsg.style.display = 'block';
+    return;
+  }
+
+  contactLoginMsg.style.display = 'none';
+  const text = document.getElementById('contactMessage').value.trim();
+
+  try {
+    const response = await fetch(`${API_BASE}/contact`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${customerToken}`
+      },
+      body: JSON.stringify({ text })
+    });
+
+    if (!response.ok) {
+      throw new Error('Could not send message');
+    }
+
+    event.target.reset();
+    contactForm.style.display = 'none';
+    contactSuccess.style.display = 'block';
+    refreshUnreadBadge();
+
+  } catch (error) {
+    alert('Sorry, we could not send your message. Please try again.');
+  }
+});
+
+document.getElementById('viewConversationBtn').addEventListener('click', () => {
+  openMyMessages();
+});
+
+document.getElementById('newsletterForm').addEventListener('submit', event => {
+  event.preventDefault();
+
+  const email = document.getElementById('newsletterEmail')
+    .value
+    .trim();
+
+  if (email) {
+    alert('Thank you for subscribing!');
+    event.target.reset();
+  }
+});
+
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+const siteHeader = document.querySelector('header');
+
+function updateHeaderOnScroll(){
+  if(window.scrollY > 60){
+    siteHeader.classList.add('scrolled');
+  }else{
+    siteHeader.classList.remove('scrolled');
+  }
+}
+window.addEventListener('scroll', updateHeaderOnScroll);
+updateHeaderOnScroll();
+
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+  });
+});
+
+const revealObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  },
+  {
+    threshold: 0.12
+  }
+);
+
+document.querySelectorAll('.reveal').forEach(element => {
+  revealObserver.observe(element);
+});
+
+updateCart();
+
+// ---- Reviews: fetch real ones from MongoDB, fall back to samples if fewer than 3 exist ----
+const DEFAULT_REVIEWS = [
+  {
+    rating: 5,
+    feedback: 'The coffee, service, and atmosphere are all amazing. It is one of my favorite places to relax.',
+    customerName: 'Ananya',
+    date: 'Sep 15, 2026'
+  },
+  {
+    rating: 5,
+    feedback: 'The cappuccino was perfectly balanced and the place has such a warm and peaceful vibe.',
+    customerName: 'Rahul',
+    date: 'Aug 28, 2026'
+  },
+  {
+    rating: 5,
+    feedback: 'Great coffee, friendly staff, and a beautiful cozy space. Definitely coming back.',
+    customerName: 'Priya',
+    date: 'Aug 10, 2026'
+  }
+];
+
+function starsHtml(rating) {
+  return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+}
+
+function formatReviewDate(dateStr) {
+  if (!dateStr) return '';
+  return new Date(dateStr).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+async function loadReviews() {
+  const grid = document.getElementById('reviewGrid');
+
+  try {
+    const res = await fetch(`${API_BASE}/reviews?limit=3`);
+
+    if (!res.ok) throw new Error('Could not load reviews');
+
+    let reviews = await res.json();
+
+    // Fill remaining slots with default reviews if fewer than 3 real reviews exist
+    if (reviews.length < 3) {
+      reviews = reviews.concat(
+        DEFAULT_REVIEWS.slice(0, 3 - reviews.length)
+      );
+    }
+
+    grid.innerHTML = reviews.map(r => `
+      <div class="review-card reveal visible">
+        <div class="stars">${starsHtml(r.rating)}</div>
+
+        <p>"${r.feedback}"</p>
+
+        <div class="reviewer">— ${r.customerName}</div>
+
+        ${
+          r.createdAt || r.date
+            ? `<div class="review-date">
+                ${r.createdAt
+                  ? formatReviewDate(r.createdAt)
+                  : r.date}
+              </div>`
+            : ''
+        }
+      </div>
+    `).join('');
+
+  } catch (err) {
+
+    // Fall back entirely to default reviews if backend isn't reachable
+    grid.innerHTML = DEFAULT_REVIEWS.map(r => `
+      <div class="review-card reveal visible">
+        <div class="stars">${starsHtml(r.rating)}</div>
+
+        <p>"${r.feedback}"</p>
+
+        <div class="reviewer">— ${r.customerName}</div>
+
+        <div class="review-date">${r.date}</div>
+      </div>
+    `).join('');
+  }
+}
+
+loadReviews();
+
+// ---- Star rating picker: hollow (☆) unselected, filled (★) selected, with hover preview ----
+let selectedRating = 0;
+const starInput = document.getElementById('starInput');
+const starSpans = Array.from(starInput.querySelectorAll('span'));
+
+function renderStars(previewValue) {
+  const activeValue = previewValue || selectedRating;
+  starSpans.forEach(s => {
+    const val = parseInt(s.dataset.value);
+    s.textContent = val <= activeValue ? '★' : '☆';
+    s.classList.toggle('selected', val <= selectedRating && !previewValue);
+    s.classList.toggle('hovered', !!previewValue && val <= previewValue);
+  });
+}
+
+starSpans.forEach(star => {
+  star.addEventListener('mouseenter', () => renderStars(parseInt(star.dataset.value)));
+  star.addEventListener('click', () => {
+    selectedRating = parseInt(star.dataset.value);
+    renderStars();
+  });
+});
+starInput.addEventListener('mouseleave', () => renderStars());
+
+// ---- Submit review ----
+document.getElementById('reviewForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  const reviewLoginMsg = document.getElementById('reviewLoginRequiredMsg');
+  const reviewErrorMsg = document.getElementById('reviewErrorMsg');
+  const reviewSuccessMsg = document.getElementById('reviewSuccessMsg');
+
+  reviewLoginMsg.style.display = 'none';
+  reviewErrorMsg.style.display = 'none';
+  reviewSuccessMsg.style.display = 'none';
+
+  if (!customerToken) {
+    reviewLoginMsg.style.display = 'block';
+    return;
+  }
+
+  if (!selectedRating) {
+    reviewErrorMsg.textContent = 'Please select a star rating.';
+    reviewErrorMsg.style.display = 'block';
+    return;
+  }
+
+  const feedback = document.getElementById('reviewFeedback').value.trim();
+  if (!feedback) {
+    reviewErrorMsg.textContent = 'Please write your feedback before submitting.';
+    reviewErrorMsg.style.display = 'block';
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_BASE}/reviews`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${customerToken}`
+      },
+      body: JSON.stringify({ rating: selectedRating, feedback })
+    });
+
+    if (!response.ok) throw new Error('Could not submit review');
+
+    event.target.reset();
+    selectedRating = 0;
+    renderStars();
+    reviewSuccessMsg.style.display = 'block';
+    loadReviews(); // refresh so the new review appears immediately at the top
+
+    setTimeout(() => {
+      reviewSuccessMsg.style.display = 'none';
+    }, 3000);
+
+  } catch (error) {
+    reviewErrorMsg.textContent = 'Sorry, we could not submit your review. Please try again.';
+    reviewErrorMsg.style.display = 'block';
+  }
+});
+</script>
+
+<script>
+
+const menuItems = document.querySelectorAll(".menu-item");
+
+const previewImage =
+  document.getElementById("menuPreviewImage");
+
+const previewAdd =
+  document.getElementById("menuPreviewAdd");
+
+
+menuItems.forEach(item => {
+
+  item.addEventListener("click", () => {
+
+    /* Remove active state */
+    menuItems.forEach(menuItem => {
+      menuItem.classList.remove("active");
+    });
+
+
+    /* Add active state */
+    item.classList.add("active");
+
+
+    /* Get selected coffee data */
+    const name = item.dataset.name;
+    const price = item.dataset.price;
+    const image = item.dataset.image;
+    const alt = item.dataset.alt;
+
+
+    /* Fade current image */
+    previewImage.classList.add("changing");
+
+
+    setTimeout(() => {
+
+      /* Change image */
+      previewImage.src = image;
+
+      previewImage.alt = alt;
+
+
+      /* Update Add to Cart data */
+      previewAdd.dataset.name = name;
+      previewAdd.dataset.price = price;
+
+
+      /* Show new image */
+      previewImage.classList.remove("changing");
+
+    }, 150);
+
+  });
+
+});
+
+</script>
+</body>
+</html>
